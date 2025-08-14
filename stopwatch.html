@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stopwatch</title>
+    <link rel="stylesheet" href="stopwatch.css" />
+  </head>
+  <body>
+    <a
+      href="index.html"
+      style="
+        color: white;
+        font-family: sans-serif;
+        font-size: 1.5em;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+      "
+      >Go to Solar System</a
+    >
+    <a
+      href="tip-calculator.html"
+      style="
+        color: white;
+        font-family: sans-serif;
+        font-size: 1.5em;
+        position: absolute;
+        top: 50px;
+        left: 20px;
+      "
+      >Go to Tip Calculator</a
+    >
+    <div class="align">
+      <div class="container">
+        <h4>Stopwatch</h4>
+        <div id="time">
+          <span class="digits" id="hour"> 00 </span>
+          <span class="text"> Hr </span>
+          <span class="digits" id="minute"> 00 </span>
+          <span class="text"> Min </span>
+          <span class="digits" id="second"> 00 </span>
+          <span class="text"> Sec </span>
+          <span class="digits" id="count"> 00 </span>
+        </div>
+        <div id="buttons">
+          <button class="btn1" id="start">Start</button>
+          <button class="btn2" id="stop">Stop</button>
+          <button class="btn3" id="reset">Reset</button>
+          <button class="btn4" id="lap">Lap</button>
+        </div>
+        <ul id="laps"></ul>
+      </div>
+    </div>
+    <script src="stopwatch.js"></script>
+  </body>
+</html>

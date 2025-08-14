@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tip Calculator</title>
+    <style>
+      :root {
+        --bg: #0b1020;
+        --card: #0f172a;
+        --text: #e5e7eb;
+        --muted: #94a3b8;
+        --accent: #22c55e;
+        --accent-2: #16a34a;
+        --border: rgba(255, 255, 255, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        background: black;
+        color: var(--text);
+      }
+      .wrap {
+        max-width: 420px;
+        margin: 6vh auto;
+        padding: 20px;
+      }
+      h2 {
+        margin: 0 0 14px;
+        text-align: center;
+        font-weight: 800;
+        color: white;
+      }
+      .card {
+        background: gray;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 16px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+      }
+      label {
+        display: block;
+        font-size: 0.9rem;
+        color: wheat;
+        margin: 10px 0 6px;
+      }
+      .input {
+        width: 100%;
+        border: 1px solid var(--border);
+        background: #0c152a;
+        color: var(--text);
+        border-radius: 12px;
+        padding: 12px 14px;
+        font-size: 1rem;
+        outline: none;
+        transition: 0.15s border, 0.15s box-shadow;
+      }
+      .input:focus {
+        border-color: rgba(34, 197, 94, 0.6);
+        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15);
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+      }
+      .btn {
+        appearance: none;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 12px;
+        background: var(--accent);
+        color: #052e16;
+        font-weight: 500;
+        margin-top: 10px;
+        transition: 0.15s transform, 0.2s background;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        background: var(--accent-2);
+      }
+      .results {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .box {
+        background: #0a1326;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px;
+      }
+      .box .label {
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+      .box .value {
+        font-size: 1.6rem;
+        font-weight: 900;
+        text-align: right;
+      }
+      .hint {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 0.85rem;
+        text-align: center;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6faf7;
+          --card: #ffffff;
+          --text: #0f172a;
+          --muted: #475569;
+          --border: rgba(2, 6, 23, 0.12);
+        }
+        body {
+          background: black;
+        }
+        .input {
+          background: #fff;
+        }
+        .box {
+          background: #fff;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a
+      href="index.html"
+      style="
+        color: white;
+        font-family: sans-serif;
+        font-size: 1.5em;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+      "
+      >Go to Solar System</a
+    >
+    <a
+      href="stopwatch.html"
+      style="
+        color: white;
+        font-family: sans-serif;
+        font-size: 1.5em;
+        position: absolute;
+        top: 50px;
+        left: 20px;
+      "
+      >Go to Stopwatch</a
+    >
+    <div class="wrap">
+      <h2>Tip Calculator</h2>
+      <div class="card">
+        <label for="bill">Bill Amount</label>
+        <input
+          class="input"
+          type="number"
+          id="bill"
+          placeholder="0"
+          step="10"
+          min="0"
+        />
+
+        <div class="row">
+          <div style="flex: 1">
+            <label for="tip">Tip %</label>
+            <input
+              class="input"
+              type="number"
+              id="tip"
+              placeholder="Enter number"
+              step="1"
+              min="0"
+              max="100"
+            />
+          </div>
+          <div style="width: 120px">
+            <label for="people">People</label>
+            <input
+              class="input"
+              type="number"
+              id="people"
+              placeholder="1"
+              value="1"
+              step="1"
+              min="1"
+            />
+          </div>
+        </div>
+
+        <button class="btn" id="calc">Calculate</button>
+
+        <div class="results">
+          <div class="box">
+            <div class="label">Tip / person</div>
+            <div class="value" id="tipPer">$0</div>
+          </div>
+          <div class="box">
+            <div class="label">Total / person</div>
+            <div class="value" id="totalPer">$0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const bill = document.getElementById("bill");
+      const tip = document.getElementById("tip");
+      const people = document.getElementById("people");
+      const tipPer = document.getElementById("tipPer");
+      const totalPer = document.getElementById("totalPer");
+      const calcBtn = document.getElementById("calc");
+
+      function money(n) {
+        return new Intl.NumberFormat(undefined, {
+          style: "currency",
+          currency: "USD",
+        }).format(isFinite(n) ? n : 0);
+      }
+      function calc() {
+        const b = parseFloat(bill.value) || 0;
+        const t = Math.min(Math.max(parseFloat(tip.value) || 0, 0), 100);
+        const p = Math.max(parseInt(people.value) || 1, 1);
+        const tipTotal = b * (t / 100);
+        tipPer.textContent = money(tipTotal / p);
+        totalPer.textContent = money((b + tipTotal) / p);
+      }
+      ["input", "change"].forEach((evt) => {
+        bill.addEventListener(evt, calc);
+        tip.addEventListener(evt, calc);
+        people.addEventListener(evt, calc);
+      });
+      calcBtn.addEventListener("click", calc);
+    </script>
+  </body>
+</html>

@@ -5,6 +5,44 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <a
+      href="stopwatch.html"
+      style="
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        color: white;
+        font-family: sans-serif;
+        font-size: 1.5em;
+      "
+      >Go to Stopwatch</a
+    >
+    <a
+      href="tip-calculator.html"
+      style="
+        position: absolute;
+        top: 50px;
+        left: 20px;
+        color: white;
+        font-family: sans-serif;
+        font-size: 1.5em;
+      "
+      >Go to Tip Calculator</a
+    >
+    <div
+      id="year-counter"
+      style="
+        position: absolute;
+        top: 80px;
+        left: 20px;
+        color: white;
+        font-family: sans-serif;
+        font-size: 1.5em;
+      "
+    >
+      Earth Years: 2000
+    </div>
+
     <div class="container">
       <div class="sun">
         <img src="./images/sun.png" alt="sun" />
@@ -20,5 +58,14 @@
       <div class="uranus"></div>
       <div class="neptune"></div>
     </div>
+    <script>
+      let years = 2000;
+      const counterEl = document.getElementById("year-counter");
+
+      setInterval(() => {
+        years++;
+        counterEl.textContent = `Earth Years: ${years}`;
+      }, 3650);
+    </script>
   </body>
 </html>

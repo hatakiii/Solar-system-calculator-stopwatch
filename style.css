@@ -181,9 +181,9 @@ img {
   animation: counterOrbit 43.3s linear infinite;
 }
 .saturn::before {
-  top: 7.5em;
-  right: 5em;
-  width: 4.5em;
+  top: 8em;
+  right: 1.3em;
+  width: 9em;
   height: 4.5em;
   background-image: url("./images/saturn.png");
   background-size: cover;
